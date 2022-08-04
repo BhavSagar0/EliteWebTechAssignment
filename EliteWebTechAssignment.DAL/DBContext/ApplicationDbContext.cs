@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EliteWebTechAssignment.DAL
+namespace EliteWebTechAssignment.DAL.DBContext
 {
     public class ApplicationDbContext : DbContext
     {
@@ -12,7 +12,7 @@ namespace EliteWebTechAssignment.DAL
         {
 
         }
-        DbSet<StudentEntityModel> Students { get; set; }
-        DbSet<ProgrammeEntityModel> Programmes { get; set; }
+        public DbSet<StudentEntityModel> Students { get; set; }
+        public DbSet<ProgrammeEntityModel> Programmes { get; set; }
     }
 }

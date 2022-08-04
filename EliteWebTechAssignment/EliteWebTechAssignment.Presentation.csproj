@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EliteWebTechAssignment.BusinessServices\EliteWebTechAssignment.BusinessServices.csproj" />
     <ProjectReference Include="..\EliteWebTechAssignment.DAL\EliteWebTechAssignment.DAL.csproj" />
   </ItemGroup>
 

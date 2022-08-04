@@ -1,4 +1,5 @@
-﻿using EliteWebTechAssignment.Models;
+﻿using EliteWebTechAssignment.BusinessServices.ViewModels;
+using EliteWebTechAssignment.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,10 @@ namespace EliteWebTechAssignment.Controllers
             return View();
         }
 
-        public IActionResult About()
+        [HttpGet]
+        public IActionResult CreateStudent()
         {
-            ViewData["Message"] = "Your application description page.";
-
+            CreateStudentViewModel createStudentViewModel = new CreateStudentViewModel();
             return View();
         }
 

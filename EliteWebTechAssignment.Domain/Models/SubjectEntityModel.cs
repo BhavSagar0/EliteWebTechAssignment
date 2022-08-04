@@ -9,7 +9,7 @@ namespace EliteWebTechAssignment.Domain.Models
     {
         [Column("ProgrammeId")]
         public int programmeId { get; set; }
-        [Column("CurrentSemester")]
-        public int currentSemester { get; set; }
+        [Column("SubjectName")]
+        public int subjectName { get; set; }
     }
 }
