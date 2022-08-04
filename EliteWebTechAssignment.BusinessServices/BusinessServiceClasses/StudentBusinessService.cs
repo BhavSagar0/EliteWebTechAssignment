@@ -15,6 +15,20 @@ namespace EliteWebTechAssignment.BusinessServices.BusinessServiceClasses
         {
             _studentRepository = studentRepository;
         }
+        public bool CreateStudent(StudentEntityModel student)
+        {
+            bool result = false;
+            try
+            {
+                _studentRepository.CreateStudent(student);
+                result = Save() > 0 ? true : false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
+        }
 
         public IEnumerable<ProgrammeEntityModel> GetAllProgrammes()
         {
@@ -29,5 +43,61 @@ namespace EliteWebTechAssignment.BusinessServices.BusinessServiceClasses
             }
             return programmes;
         }
+        public bool CreateProgramme(ProgrammeEntityModel programme, IEnumerable<string> programmeSubjects)
+        {
+            bool result = false;
+            try
+            {
+                int programmeId = _studentRepository.CreateProgramme(programme);
+                if (programmeId > 0)
+                {
+                    _studentRepository.AddProgrammeSubjects(programmeId, programmeSubjects);
+                }
+                result = Save() > 0 ? true : false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
+        }
+        public IEnumerable<StudentEntityModel> GetAllStudents()
+        {
+            IEnumerable<StudentEntityModel> students = Enumerable.Empty<StudentEntityModel>();
+            try
+            {
+                students = _studentRepository.GetAllStudents();
+            }
+            catch { }
+            return students;
+        }
+        public bool AddStudentIntakeYear(int studentId, int year)
+        {
+            bool result = false;
+            try
+            {
+                IntakeEntityModel intakeYearModel = new IntakeEntityModel() { studentId = studentId, intakeYear = year };
+                _studentRepository.AddStudentIntakeYear(intakeYearModel);
+                result = Save() > 0 ? true : false;
+            }
+            catch { }
+            return result;
+            
+        }
+        public int Save()
+        {
+            int result = -1;
+            try
+            {
+                result = _studentRepository.Save();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
+        }
+
+        
     }
 }

@@ -1,4 +1,6 @@
 ﻿using EliteWebTechAssignment.BusinessServices.ViewModels;
+using EliteWebTechAssignment.Domain.Interfaces;
+using EliteWebTechAssignment.Domain.Models;
 using EliteWebTechAssignment.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,28 +13,142 @@ namespace EliteWebTechAssignment.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IStudentBusinessService _studentBusinessService;
+
+        public HomeController(IStudentBusinessService studentBusinessService)
+        {
+            _studentBusinessService = studentBusinessService;
+        }
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<StudentEntityModel> students = Enumerable.Empty<StudentEntityModel>();
+            try
+            {
+                students = _studentBusinessService.GetAllStudents();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View(students);
         }
 
         [HttpGet]
-        public IActionResult CreateStudent()
+        public IActionResult CreateStudent(bool isSuccess = false)
         {
             CreateStudentViewModel createStudentViewModel = new CreateStudentViewModel();
-            return View();
+            try
+            {
+                createStudentViewModel.programmeList = _studentBusinessService.GetAllProgrammes();
+                createStudentViewModel.isSuccess = isSuccess;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View(createStudentViewModel);
         }
 
-        public IActionResult Contact()
+        [HttpPost]
+        public IActionResult CreateStudent(CreateStudentViewModel createStudentViewModel)
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (_studentBusinessService.CreateStudent(createStudentViewModel.student))
+                    {
+                        createStudentViewModel.isSuccess = true;
+                        return RedirectToAction(nameof(CreateStudent), new { isSuccess = createStudentViewModel.isSuccess });
+                    }
+                }
+                else
+                {
+                    createStudentViewModel.programmeList = _studentBusinessService.GetAllProgrammes();
+                }
+            }
+            catch(Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View(createStudentViewModel);
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult CreateProgramme(bool isSuccess = false)
         {
-            return View();
+            CreateProgrammeViewModel createProgrammeViewModel = new CreateProgrammeViewModel();
+            try
+            {
+                createProgrammeViewModel.isSuccess = isSuccess;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View(createProgrammeViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult CreateProgramme(CreateProgrammeViewModel createProgrammeViewModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    IEnumerable<string> subjectsList = new List<string>()
+                    {
+                        createProgrammeViewModel.subject1,
+                        createProgrammeViewModel.subject2,
+                        createProgrammeViewModel.subject3
+                    };
+
+                    if (_studentBusinessService.CreateProgramme(createProgrammeViewModel.programme, subjectsList))
+                    {
+                        createProgrammeViewModel.isSuccess = true;
+                        return RedirectToAction(nameof(CreateProgramme), new { isSuccess = createProgrammeViewModel.isSuccess });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View(createProgrammeViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult AddStudentIntakeYear(bool isSuccess = false)
+        {
+            AddStudentIntakeYearViewModel addStudentIntakeYearViewModel = new AddStudentIntakeYearViewModel();
+            try
+            {
+                addStudentIntakeYearViewModel.students = _studentBusinessService.GetAllStudents();
+                addStudentIntakeYearViewModel.isSuccess = isSuccess;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View(addStudentIntakeYearViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddStudentIntakeYear(AddStudentIntakeYearViewModel addStudentIntakeYearViewModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (_studentBusinessService.AddStudentIntakeYear(addStudentIntakeYearViewModel.studentId, addStudentIntakeYearViewModel.intakeYear))
+                        return RedirectToAction(nameof(AddStudentIntakeYear), new { isSuccess = true });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View(addStudentIntakeYearViewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

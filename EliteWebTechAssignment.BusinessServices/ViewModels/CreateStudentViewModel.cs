@@ -7,6 +7,8 @@ namespace EliteWebTechAssignment.BusinessServices.ViewModels
 {
     public class CreateStudentViewModel
     {
+        public StudentEntityModel student { get; set; }
         public IEnumerable<ProgrammeEntityModel> programmeList { get; set; }
+        public bool isSuccess { get; set; }
     }
 }

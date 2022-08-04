@@ -18,6 +18,43 @@ namespace EliteWebTechAssignment.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("EliteWebTechAssignment.Domain.Models.CurrentSemEntityModel", b =>
+                {
+                    b.Property<int>("PkId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("currentSemester")
+                        .HasColumnName("CurrentSemester");
+
+                    b.Property<int>("currentYear")
+                        .HasColumnName("CurrentYear");
+
+                    b.Property<int>("studentId")
+                        .HasColumnName("StudentId");
+
+                    b.HasKey("PkId");
+
+                    b.ToTable("CurrentSemYear");
+                });
+
+            modelBuilder.Entity("EliteWebTechAssignment.Domain.Models.IntakeEntityModel", b =>
+                {
+                    b.Property<int>("PkId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("intakeYear")
+                        .HasColumnName("IntakeYear");
+
+                    b.Property<int>("studentId")
+                        .HasColumnName("StudentId");
+
+                    b.HasKey("PkId");
+
+                    b.ToTable("Intakes");
+                });
+
             modelBuilder.Entity("EliteWebTechAssignment.Domain.Models.ProgrammeEntityModel", b =>
                 {
                     b.Property<int>("programmeId")
@@ -41,6 +78,13 @@ namespace EliteWebTechAssignment.DAL.Migrations
                         .HasColumnName("StudentId")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("collegeName")
+                        .IsRequired()
+                        .HasColumnName("College");
+
+                    b.Property<int>("programmeId")
+                        .HasColumnName("ProgrammeId");
+
                     b.Property<string>("studentName")
                         .IsRequired()
                         .HasColumnName("StudentName");
@@ -48,6 +92,23 @@ namespace EliteWebTechAssignment.DAL.Migrations
                     b.HasKey("studentId");
 
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("EliteWebTechAssignment.Domain.Models.SubjectEntityModel", b =>
+                {
+                    b.Property<int>("PkId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("programmeId")
+                        .HasColumnName("ProgrammeId");
+
+                    b.Property<string>("subjectName")
+                        .HasColumnName("SubjectName");
+
+                    b.HasKey("PkId");
+
+                    b.ToTable("ProgrammeSubjects");
                 });
 #pragma warning restore 612, 618
         }

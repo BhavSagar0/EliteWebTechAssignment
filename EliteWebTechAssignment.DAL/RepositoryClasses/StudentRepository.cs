@@ -16,6 +16,18 @@ namespace EliteWebTechAssignment.DAL.RepositoryClasses
             _db = db;
         }
 
+        public void CreateStudent(StudentEntityModel student)
+        {
+            try
+            {
+                _db.Students.Add(student);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public IEnumerable<ProgrammeEntityModel> GetAllProgrammes()
         {
             IEnumerable<ProgrammeEntityModel> programmeList = Enumerable.Empty<ProgrammeEntityModel>();
@@ -29,5 +41,65 @@ namespace EliteWebTechAssignment.DAL.RepositoryClasses
             }
             return programmeList;
         }
+        public int CreateProgramme(ProgrammeEntityModel programme)
+        {
+            int programmeId = 0;
+            try
+            {
+                var programmeEntity = _db.Programmes.Add(programme);
+                if(Save() > 0)
+                    programmeId = programme.programmeId;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return programmeId;
+        }
+        public void AddProgrammeSubjects(int programmeId, IEnumerable<string> subjects)
+        {
+            try
+            {
+                foreach (var subject in subjects)
+                {
+                    SubjectEntityModel subjectToAdd = new SubjectEntityModel { programmeId = programmeId, subjectName = subject };
+                    _db.ProgrammeSubjects.Add(subjectToAdd);
+                }
+            }
+            catch { }
+        }
+        public IEnumerable<StudentEntityModel> GetAllStudents()
+        {
+            IEnumerable<StudentEntityModel> studentList = Enumerable.Empty<StudentEntityModel>();   
+            try
+            {
+                studentList = _db.Students.ToList();
+            }
+            catch { }
+            return studentList;
+        }
+        public void AddStudentIntakeYear(IntakeEntityModel intakeYearModel)
+        {
+            try
+            {
+                _db.Intakes.Add(intakeYearModel);
+            }
+            catch { }
+        }
+        public int Save()
+        {
+            int result = 0;
+            try
+            {
+                result = _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return result;
+        }
+
+        
     }
 }

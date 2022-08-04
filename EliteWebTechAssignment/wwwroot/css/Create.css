@@ -1,0 +1,12 @@
+﻿
+.alert{
+    padding: 20px;
+    background-color: #00b709; /* Green */
+    color: white;
+    margin-bottom: 15px;
+}
+
+.myBtn {
+    padding : 8px;
+}
+

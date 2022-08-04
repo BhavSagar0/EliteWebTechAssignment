@@ -13,6 +13,7 @@ namespace EliteWebTechAssignment.Domain.Models
         public int programmeId { get; set; }
         [Required]
         [Column("ProgrammeName")]
+        [Display(Name = "Programme Name")]
         public string programmeName { get; set; }
     }
 }

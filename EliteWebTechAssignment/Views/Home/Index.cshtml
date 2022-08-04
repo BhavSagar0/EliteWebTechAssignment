@@ -5,15 +5,15 @@
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">
-                Borrowed Items List
+                Students List
             </h2>
         </div>
-        <div class="col-6 text-right">
-            <a asp-controller="Item" asp-action="Create" class="btn btn-primary">Add Student</a>
-            <a asp-controller="Item" asp-action="Create" class="btn btn-primary">Add Programme</a>
-            <a asp-controller="Item" asp-action="Create" class="btn btn-primary">Add Student Intake Year</a>
-            <a asp-controller="Item" asp-action="Create" class="btn btn-primary">Add Student Current Semester</a>
-            <a asp-controller="Item" asp-action="Create" class="btn btn-primary">Add Programme Subjects</a>
+        <div class="col-12 text-right">
+            <a asp-controller="Home" asp-action="CreateStudent" class="btn btn-primary">Add Student</a>
+            <a asp-controller="Home" asp-action="CreateProgramme" class="btn btn-primary">Add Programme</a>
+            <a asp-controller="Home" asp-action="AddStudentIntakeYear" class="btn btn-primary">Add Student Intake Year</a>
+            <a asp-controller="Home" asp-action="Create" class="btn btn-primary">Add Student Current Semester</a>
+            <a asp-controller="Home" asp-action="Create" class="btn btn-primary">Add Programme Subjects</a>
         </div>
     </div>
     <br />
@@ -44,6 +44,6 @@
     }
     else
     {
-        <p>No items created yet!</p>
+        <p>No students yet!</p>
     }
 </div>

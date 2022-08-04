@@ -15,6 +15,11 @@ namespace EliteWebTechAssignment.Domain.Models
         [Column("StudentName")]
         [Display(Name = "Student Name")]
         public string studentName { get; set; }
+        [Required]
+        [Column("College")]
+        [Display(Name = "College")]
+        public string collegeName { get; set; }
+        [Required]
         [Column("ProgrammeId")]
         [Display(Name = "Programme")]
         public int programmeId { get; set; }
