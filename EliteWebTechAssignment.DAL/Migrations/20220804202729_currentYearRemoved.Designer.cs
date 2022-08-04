@@ -3,14 +3,16 @@ using EliteWebTechAssignment.DAL.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EliteWebTechAssignment.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220804202729_currentYearRemoved")]
+    partial class currentYearRemoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,7 +34,7 @@ namespace EliteWebTechAssignment.DAL.Migrations
 
                     b.HasKey("PkId");
 
-                    b.ToTable("CurrentSemesters");
+                    b.ToTable("CurrentSemYear");
                 });
 
             modelBuilder.Entity("EliteWebTechAssignment.Domain.Models.IntakeEntityModel", b =>

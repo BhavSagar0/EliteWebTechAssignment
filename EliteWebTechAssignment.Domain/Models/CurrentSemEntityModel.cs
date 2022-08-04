@@ -14,7 +14,5 @@ namespace EliteWebTechAssignment.Domain.Models
         public int studentId { get; set; }
         [Column("CurrentSemester")]
         public int currentSemester { get; set; }
-        [Column("CurrentYear")]
-        public int currentYear { get; set; }
     }
 }

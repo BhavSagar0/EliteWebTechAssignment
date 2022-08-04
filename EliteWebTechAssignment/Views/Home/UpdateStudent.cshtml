@@ -1,0 +1,76 @@
+﻿@using EliteWebTechAssignment.BusinessServices.ViewModels
+@using EliteWebTechAssignment.Domain.Models
+@model UpdateStudentViewModel
+
+<link rel="stylesheet" href="~/css/Create.css" />
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/Create.js"></script>
+
+@if (Model.isSuccess != null)
+{
+    if ((bool)Model.isSuccess)
+    {
+        <div class="alert">
+            The student was added successfully!
+            <p>You'll be automatically redirected in <span id="count">5</span> seconds...</p>
+        </div>
+    }
+}
+
+<form method="post" asp-action="UpdateStudent">
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">
+                Add Student
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="@Model.studentId"></label>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="@Model.intakeYear"></label>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="@Model.currentSem"></label>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="@Model.programmeId"></label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-3">
+                        <select id="StudentSelector" asp-for="@Model.studentId" class="form-control" asp-items="@(new SelectList(Model.studentsList, nameof(StudentEntityModel.studentId), nameof(StudentEntityModel.studentName)))">
+                            <option value="-1" selected>---Select Student---</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="@Model.intakeYear" class="form-control"></input>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="@Model.currentSem" class="form-control"></input>
+                    </div>
+                    <div class="col-3">
+                        <select id="ProgrammeSelector" asp-for="@Model.programmeId" class="form-control" asp-items="@(new SelectList(Model.programmesList, nameof(ProgrammeEntityModel.programmeId), nameof(ProgrammeEntityModel.programmeName)))">
+                            <option value="-1" selected>---Select Programme---</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-8 offset-2 row">
+                        <div class="col myBtn">
+                            <input type="submit" class="btn btn-info w-75" value="Create" />
+                        </div>
+                        <div class="col myBtn">
+                            <a asp-action="Index" class="btn btn-danger w-75">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

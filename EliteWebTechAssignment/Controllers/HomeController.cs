@@ -151,6 +151,45 @@ namespace EliteWebTechAssignment.Controllers
             return View(addStudentIntakeYearViewModel);
         }
 
+        [HttpGet]
+        public IActionResult UpdateStudent(bool isSuccess = false)
+        {
+            UpdateStudentViewModel updateStudentViewModel = new UpdateStudentViewModel();
+            try
+            {
+                updateStudentViewModel.studentsList = _studentBusinessService.GetAllStudents();
+                updateStudentViewModel.programmesList = _studentBusinessService.GetAllProgrammes();
+                updateStudentViewModel.isSuccess = isSuccess;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View(updateStudentViewModel);
+        }
+        [HttpPost]
+        public IActionResult UpdateStudent(UpdateStudentViewModel updateStudentViewModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (_studentBusinessService.UpdateStudent(updateStudentViewModel.studentId, updateStudentViewModel.intakeYear, updateStudentViewModel.currentSem, updateStudentViewModel.programmeId))
+                        return RedirectToAction(nameof(UpdateStudent), new { isSuccess = true });
+                }
+                else
+                {
+                    updateStudentViewModel.studentsList = _studentBusinessService.GetAllStudents();
+                    updateStudentViewModel.programmesList = _studentBusinessService.GetAllProgrammes();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View(updateStudentViewModel);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

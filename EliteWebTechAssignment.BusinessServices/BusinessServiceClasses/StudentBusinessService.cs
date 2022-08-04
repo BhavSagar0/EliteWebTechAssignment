@@ -84,6 +84,41 @@ namespace EliteWebTechAssignment.BusinessServices.BusinessServiceClasses
             return result;
             
         }
+        public bool UpdateStudent(int studentId, int intakeYear, int currentSem, int programmeId)
+        {
+            bool result = false;
+            try
+            {
+                bool updateStudentResult = false;
+                StudentEntityModel oldStudentObj = _studentRepository.GetStudentById(studentId);
+                StudentEntityModel newStudentObj = new StudentEntityModel() { studentId = studentId, programmeId = programmeId };
+                if (oldStudentObj.programmeId != newStudentObj.programmeId && programmeId > 0)
+                {
+                    _studentRepository.UpdateStudent(oldStudentObj, newStudentObj);
+                    updateStudentResult = Save() > 0 ? true : false;
+                }
+                else
+                    updateStudentResult = true;
+                    
+                
+                if (AddStudentIntakeYear(studentId, intakeYear) && updateStudentResult && AddCurrentSem(studentId, currentSem))
+                    result = true;
+            }
+            catch { }
+            return result;
+        }
+        public bool AddCurrentSem(int studentId, int currentSem)
+        {
+            bool result = false;
+            try
+            {
+                CurrentSemEntityModel currentSemModel = new CurrentSemEntityModel() { studentId = studentId, currentSemester = currentSem };
+                _studentRepository.AddCurrentSem(currentSemModel);
+                result = Save() > 0 ? true : false;
+            }
+            catch { }
+            return result;
+        }
         public int Save()
         {
             int result = -1;

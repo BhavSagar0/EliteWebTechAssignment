@@ -86,6 +86,33 @@ namespace EliteWebTechAssignment.DAL.RepositoryClasses
             }
             catch { }
         }
+        public StudentEntityModel GetStudentById(int studentId)
+        {
+            StudentEntityModel student = new StudentEntityModel();
+            try
+            {
+                student = _db.Students.Where(s => s.studentId == studentId).FirstOrDefault();
+            }
+            catch { }
+            return student;
+        }
+        public void UpdateStudent(StudentEntityModel oldStudentObj, StudentEntityModel newStudentObj)
+        {
+            try
+            {
+                _db.Entry(oldStudentObj).CurrentValues.SetValues(newStudentObj);
+            }
+            catch { }
+        }
+
+        public void AddCurrentSem(CurrentSemEntityModel currentSem)
+        {
+            try
+            {
+                _db.CurrentSemesters.Add(currentSem);
+            }
+            catch { }
+        }
         public int Save()
         {
             int result = 0;
@@ -99,7 +126,5 @@ namespace EliteWebTechAssignment.DAL.RepositoryClasses
             }
             return result;
         }
-
-        
     }
 }
