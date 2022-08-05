@@ -16,6 +16,13 @@ namespace EliteWebTechAssignment.Domain.Interfaces
         StudentEntityModel GetStudentById(int studentId);
         void UpdateStudent(StudentEntityModel oldStudentObj, StudentEntityModel newStudentObj);
         void AddCurrentSem(CurrentSemEntityModel currentSem);
+        IEnumerable<SubjectEntityModel> GetProgrammeSubjects(int programmeId);
+        void AddStudentMarks(StudentMarksEntityModel studentMarks);
+        StudentEntityModel GetStudentbyId(int studentId);
+        StudentMarksEntityModel GetStudentMarks(int studentId);
+        CurrentSemEntityModel GetStudentCurrentSem(int studentId);
+        IntakeEntityModel GetStudentIntakeYear(int studentId);
+        ProgrammeEntityModel GetStudentProgramme(StudentEntityModel student);
         int Save();
     }
 }

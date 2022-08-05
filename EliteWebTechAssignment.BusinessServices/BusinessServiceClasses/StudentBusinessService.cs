@@ -61,12 +61,16 @@ namespace EliteWebTechAssignment.BusinessServices.BusinessServiceClasses
             }
             return result;
         }
-        public IEnumerable<StudentEntityModel> GetAllStudents()
+        public IEnumerable<StudentEntityModel> GetAllStudents(string searchString)
         {
             IEnumerable<StudentEntityModel> students = Enumerable.Empty<StudentEntityModel>();
             try
             {
                 students = _studentRepository.GetAllStudents();
+                if (!string.IsNullOrEmpty(searchString))
+                {
+                    students = students.Where()
+                }
             }
             catch { }
             return students;
@@ -118,6 +122,95 @@ namespace EliteWebTechAssignment.BusinessServices.BusinessServiceClasses
             }
             catch { }
             return result;
+        }
+        public IEnumerable<SubjectEntityModel> GetProgrammeSubjects(int programmeId)
+        {
+            IEnumerable<SubjectEntityModel> subjects = Enumerable.Empty<SubjectEntityModel>();
+            try
+            {
+                subjects = _studentRepository.GetProgrammeSubjects(programmeId);
+            }
+            catch { }
+            return subjects;
+        }
+        public IEnumerable<SubjectEntityModel> GetStudentProgrammeSubjects(int studentId)
+        {
+            IEnumerable<SubjectEntityModel> students = Enumerable.Empty<SubjectEntityModel>();
+            try
+            {
+                students = GetProgrammeSubjects(_studentRepository.GetStudentById(studentId).programmeId);
+            }
+            catch { }
+            return students;
+        }
+        public bool AddStudentMarks(int studentId, IEnumerable<int> marksList)
+        {
+            bool result = false;
+            try
+            {
+                StudentMarksEntityModel studentMarks = new StudentMarksEntityModel()
+                {
+                    studentId = studentId,
+                    marks1 = marksList.ElementAt(0),
+                    marks2 = marksList.ElementAt(1),
+                    marks3 = marksList.ElementAt(2),
+                };
+                _studentRepository.AddStudentMarks(studentMarks);
+                result = Save() > 0 ? true : false;
+            }
+            catch { }
+            return result;
+        }
+        public StudentEntityModel GetStudentbyId(int studentId)
+        {
+            StudentEntityModel student = new StudentEntityModel();
+            try
+            {
+                student = _studentRepository.GetStudentById(studentId);
+            }
+            catch { }
+            return student;
+        }
+        public StudentMarksEntityModel GetStudentMarks(int studentId)
+        {
+            StudentMarksEntityModel studentMarks = new StudentMarksEntityModel();
+            try
+            {
+                studentMarks = _studentRepository.GetStudentMarks(studentId);
+            }
+            catch { }
+            return studentMarks;
+        }
+        public CurrentSemEntityModel GetStudentCurrentSem(int studentId)
+        {
+            CurrentSemEntityModel currentSem = new CurrentSemEntityModel();
+            try
+            {
+                currentSem = _studentRepository.GetStudentCurrentSem(studentId);
+            }
+            catch { }
+            return currentSem;
+        }
+
+        public IntakeEntityModel GetStudentIntakeYear(int studentId)
+        {
+            IntakeEntityModel studentIntake = new IntakeEntityModel();
+            try
+            {
+                studentIntake = _studentRepository.GetStudentIntakeYear(studentId);
+            }
+            catch { }
+            return studentIntake;
+        }
+        public ProgrammeEntityModel GetStudentProgramme(int studentId)
+        {
+            ProgrammeEntityModel programme = new ProgrammeEntityModel();
+            try
+            {
+                programme = _studentRepository.GetStudentProgramme(GetStudentbyId(studentId));
+            }
+            catch { }
+            return programme;
         }
         public int Save()
         {

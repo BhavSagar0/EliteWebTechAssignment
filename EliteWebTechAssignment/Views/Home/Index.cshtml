@@ -8,12 +8,14 @@
                 Students List
             </h2>
         </div>
+        <form method="get" asp-action="Index" class="input-group mb-3" style="align-content:space-around; width:auto">
+        <input type="search" placeholder="Enter Info" class="form-control" style="width:auto" name="searchString" />
+        <button type="submit" class="btn btn-primary" style="background-color:#3684a8;color:white;"><i class="fa fa-search"></i> Search</button>
+        </form>
         <div class="col-12 text-right">
             <a asp-controller="Home" asp-action="CreateStudent" class="btn btn-primary">Add Student</a>
             <a asp-controller="Home" asp-action="CreateProgramme" class="btn btn-primary">Add Programme</a>
-            @*<a asp-controller="Home" asp-action="AddStudentIntakeYear" class="btn btn-primary">Add Student Intake Year</a>*@
             <a asp-controller="Home" asp-action="UpdateStudent" class="btn btn-primary">Update Student</a>
-            <a asp-controller="Home" asp-action="Create" class="btn btn-primary">Add Student Marks</a>
         </div>
     </div>
     <br />
@@ -29,6 +31,9 @@
                     <th>
                         Student Name
                     </th>
+                    <th>
+
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +42,12 @@
                     <tr>
                         <td width="30%">@student.studentId</td>
                         <td width="30%">@student.studentName</td>
+                        <td width="30%">
+                            <div class="btn-group w-100" role="group">
+                                <a asp-action="AddStudentMarks" asp-route-studentId="@student.studentId" class="btn btn-primary mx-1">Add Marks</a>
+                                <a asp-action="DisplayStudentMarks" asp-route-studentId="@student.studentId" class="btn btn-primary mx-1">Display Marks</a>    
+                            </div>
+                        </td>
                     </tr>
                 }
             </tbody>

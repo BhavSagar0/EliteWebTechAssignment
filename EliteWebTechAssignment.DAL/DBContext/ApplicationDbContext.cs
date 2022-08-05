@@ -17,5 +17,6 @@ namespace EliteWebTechAssignment.DAL.DBContext
         public DbSet<SubjectEntityModel> ProgrammeSubjects { get; set; }
         public DbSet<CurrentSemEntityModel> CurrentSemesters { get; set; }
         public DbSet<IntakeEntityModel> Intakes { get; set; }
+        public DbSet<StudentMarksEntityModel> StudentMarks { get; set; }
     }
 }

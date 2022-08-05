@@ -19,12 +19,12 @@ namespace EliteWebTechAssignment.Controllers
         {
             _studentBusinessService = studentBusinessService;
         }
-        public IActionResult Index()
+        public IActionResult Index(string searchString = "")
         {
             IEnumerable<StudentEntityModel> students = Enumerable.Empty<StudentEntityModel>();
             try
             {
-                students = _studentBusinessService.GetAllStudents();
+                students = _studentBusinessService.GetAllStudents(searchString);
             }
             catch (Exception ex)
             {
@@ -188,6 +188,70 @@ namespace EliteWebTechAssignment.Controllers
                 Console.WriteLine(ex.Message);
             }
             return View(updateStudentViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult AddStudentMarks(int studentId, bool isSuccess = false)
+        {
+            AddStudentMarksViewModel addStudentMarksViewModel = new AddStudentMarksViewModel();
+            try
+            {
+                addStudentMarksViewModel.studentId = studentId;
+                addStudentMarksViewModel.studentName = _studentBusinessService.GetStudentbyId(studentId).studentName;
+                addStudentMarksViewModel.subjectsList = _studentBusinessService.GetStudentProgrammeSubjects(studentId);
+                addStudentMarksViewModel.isSuccess = isSuccess;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View(addStudentMarksViewModel);
+        }
+        [HttpPost]
+        public IActionResult AddStudentMarks(AddStudentMarksViewModel addStudentMarksViewModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    IEnumerable<int> marksList = new List<int> 
+                    {
+                        addStudentMarksViewModel.subject1,
+                        addStudentMarksViewModel.subject2,
+                        addStudentMarksViewModel.subject3
+                    };
+                    
+
+                    if (_studentBusinessService.AddStudentMarks(addStudentMarksViewModel.studentId, marksList))
+                        return RedirectToAction(nameof(AddStudentMarks), new { studentId = addStudentMarksViewModel.studentId, isSuccess = true });
+                }
+                else
+                {
+                    addStudentMarksViewModel.subjectsList = _studentBusinessService.GetStudentProgrammeSubjects(addStudentMarksViewModel.studentId);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View(addStudentMarksViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult DisplayStudentMarks(int studentId)
+        {
+            DisplayStudentMarksViewModel displayStudentMarksViewModel = new DisplayStudentMarksViewModel();
+            try
+            {
+                displayStudentMarksViewModel.student = _studentBusinessService.GetStudentbyId(studentId);
+                displayStudentMarksViewModel.subjectsList = _studentBusinessService.GetStudentProgrammeSubjects(studentId).ToList();
+                displayStudentMarksViewModel.marksList = _studentBusinessService.GetStudentMarks(studentId);
+                displayStudentMarksViewModel.intakeYear = _studentBusinessService.GetStudentIntakeYear(studentId);
+                displayStudentMarksViewModel.currentSem = _studentBusinessService.GetStudentCurrentSem(studentId);
+                displayStudentMarksViewModel.programme = _studentBusinessService.GetStudentProgramme(studentId);
+            }
+            catch { }
+            return View(displayStudentMarksViewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

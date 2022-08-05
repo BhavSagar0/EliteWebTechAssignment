@@ -113,6 +113,76 @@ namespace EliteWebTechAssignment.DAL.RepositoryClasses
             }
             catch { }
         }
+        public IEnumerable<SubjectEntityModel> GetProgrammeSubjects(int programmeId)
+        {
+            IEnumerable<SubjectEntityModel> subjects = Enumerable.Empty<SubjectEntityModel>();
+            try
+            {
+                subjects = _db.ProgrammeSubjects.Where(s => s.programmeId == programmeId);
+            }
+            catch { }
+            return subjects;
+
+        }
+        public void AddStudentMarks(StudentMarksEntityModel studentMarks)
+        {
+            try
+            {
+                _db.StudentMarks.Add(studentMarks);
+            }
+            catch { }
+        }
+        public StudentEntityModel GetStudentbyId(int studentId)
+        {
+            StudentEntityModel student = new StudentEntityModel();
+            try
+            {
+                student = _db.Students.SingleOrDefault(s => s.studentId == studentId);
+            }
+            catch { }
+            return student;
+        }
+        public StudentMarksEntityModel GetStudentMarks(int studentId)
+        {
+            StudentMarksEntityModel studentMarks = new StudentMarksEntityModel();
+            try
+            {
+                studentMarks = _db.StudentMarks.Where(s => s.studentId == studentId).FirstOrDefault();
+            }
+            catch { }
+            return studentMarks;
+        }
+        public CurrentSemEntityModel GetStudentCurrentSem(int studentId)
+        {
+            CurrentSemEntityModel currentSem = new CurrentSemEntityModel();
+            try
+            {
+                currentSem = _db.CurrentSemesters.Where(s => s.studentId == studentId).FirstOrDefault();
+            }
+            catch { }
+            return currentSem;
+        }
+
+        public IntakeEntityModel GetStudentIntakeYear(int studentId)
+        {
+            IntakeEntityModel studentIntake = new IntakeEntityModel();
+            try
+            {
+                studentIntake = _db.Intakes.Where(s => s.studentId == studentId).FirstOrDefault();
+            }
+            catch { }
+            return studentIntake;
+        }
+        public ProgrammeEntityModel GetStudentProgramme(StudentEntityModel student)
+        {
+            ProgrammeEntityModel programme = new ProgrammeEntityModel();
+            try
+            {
+                programme = _db.Programmes.Where(p => p.programmeId == student.programmeId).FirstOrDefault();
+            }
+            catch { }
+            return programme;
+        }
         public int Save()
         {
             int result = 0;
@@ -126,5 +196,7 @@ namespace EliteWebTechAssignment.DAL.RepositoryClasses
             }
             return result;
         }
+
+        
     }
 }

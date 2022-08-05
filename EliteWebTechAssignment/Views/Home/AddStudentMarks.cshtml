@@ -1,0 +1,70 @@
+﻿@using EliteWebTechAssignment.BusinessServices.ViewModels
+@using EliteWebTechAssignment.Domain.Models
+@model AddStudentMarksViewModel
+
+<link rel="stylesheet" href="~/css/Create.css" />
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/Create.js"></script>
+
+@if (Model.isSuccess != null)
+{
+    if ((bool)Model.isSuccess)
+    {
+        <div class="alert">
+            The student marks were added successfully!
+            <p>You'll be automatically redirected in <span id="count">5</span> seconds...</p>
+        </div>
+    }
+}
+
+<form method="post" asp-action="AddStudentMarks">
+    <input asp-for="@Model.studentId" hidden />
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">
+                Add Student Marks
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="@Model.studentName"></label>
+                    </div>
+                    @foreach(var subject in Model.subjectsList)
+                    {
+                        <div class="col-3">
+                        <label>@subject.subjectName</label>
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-3">
+                        <input asp-for="@Model.studentName" class="form-control" read-only="@true" />
+                    </div>
+                    <div class="col-3">
+                            <input asp-for="@Model.subject1" class="form-control" value=""/>
+                    </div>
+                    <div class="col-3">
+                            <input asp-for="@Model.subject2" class="form-control" value=""/>
+                    </div>
+                    <div class="col-3">
+                            <input asp-for="@Model.subject3" class="form-control" value=""/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-8 offset-2 row">
+                        <div class="col myBtn">
+                            <input type="submit" class="btn btn-info w-75" value="Create" />
+                        </div>
+                        <div class="col myBtn">
+                            <a asp-action="Index" class="btn btn-danger w-75">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,99 @@
+﻿@model EliteWebTechAssignment.BusinessServices.ViewModels.DisplayStudentMarksViewModel
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Student Marks
+            </h2>
+        </div>
+    </div>
+    <br />
+
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Year
+                    </th>
+                    <th>
+                        College
+                    </th>
+                    <th>
+                        Programme
+                    </th>
+                    <th>
+                        Semester
+                    </th>
+                    <th>
+                        Subject
+                    </th>
+                    <th>
+                        Pass | Fail
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                    
+                        @for( int i = 0; i < 3; i++)
+                        {
+                            <tr>
+                            @if (i == 0)
+                            {
+                                <td>@Model.student.studentName</td>
+                                <td>@Model.intakeYear.intakeYear</td>
+                                <td>@Model.student.collegeName</td>
+                                <td>@Model.programme.programmeName</td>
+                                <td>@Model.currentSem.currentSemester</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            <td>@Model.subjectsList.ElementAt(i).subjectName</td>
+                            
+                            @{
+                                if (i == 0)
+                                {
+                                    <td>
+                                        @Model.marksList.marks1
+                                    </td>
+                                }
+                                else if (i == 1)
+                                {
+                                    <td>
+                                        @Model.marksList.marks2
+                                    </td>
+                                }
+                                else if (i == 2)
+                                {
+                                    <td>
+                                        @Model.marksList.marks3
+                                    </td>
+                                }
+                            }
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan=6>Total</td>
+                            @{
+                                int total = Model.marksList.marks1 + Model.marksList.marks2 + Model.marksList.marks3;
+                                if (total / 3 < 33)
+                                {
+                                    <td>@total (F)</td>
+                                }
+                                <td>@total (P)</td>
+                            }
+                        </tr>
+                    
+            </tbody>
+        </table>
+    
+</div>
