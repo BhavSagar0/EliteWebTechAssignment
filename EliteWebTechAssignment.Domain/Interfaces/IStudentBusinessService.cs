@@ -5,7 +5,7 @@ namespace EliteWebTechAssignment.Domain.Interfaces
 {
     public interface IStudentBusinessService
     {
-        IEnumerable<StudentEntityModel> GetAllStudents(string searchString);
+        IEnumerable<StudentEntityModel> GetAllStudents(string searchString = "");
         bool CreateStudent(StudentEntityModel student);
         IEnumerable<ProgrammeEntityModel> GetAllProgrammes();
         bool CreateProgramme(ProgrammeEntityModel programme, IEnumerable<string> programmeSubjects);

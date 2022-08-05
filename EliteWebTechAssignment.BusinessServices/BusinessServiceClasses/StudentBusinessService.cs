@@ -61,7 +61,7 @@ namespace EliteWebTechAssignment.BusinessServices.BusinessServiceClasses
             }
             return result;
         }
-        public IEnumerable<StudentEntityModel> GetAllStudents(string searchString)
+        public IEnumerable<StudentEntityModel> GetAllStudents(string searchString = "")
         {
             IEnumerable<StudentEntityModel> students = Enumerable.Empty<StudentEntityModel>();
             try
@@ -69,7 +69,13 @@ namespace EliteWebTechAssignment.BusinessServices.BusinessServiceClasses
                 students = _studentRepository.GetAllStudents();
                 if (!string.IsNullOrEmpty(searchString))
                 {
-                    students = students.Where()
+                    students = students.Where(s => 
+                    s.studentName.ToLower().Contains(searchString.ToLower()) || 
+                    GetStudentProgramme(s.studentId).programmeName.ToLower().Contains(searchString.ToLower()) ||
+                    s.collegeName.ToLower().Contains(searchString.ToLower()) ||
+                    GetStudentIntakeYear(s.studentId).intakeYear.ToString().Equals(searchString.ToLower()) ||
+                    GetStudentCurrentSem(s.studentId).currentSemester.ToString().Equals(searchString.ToLower())
+                    ).ToList();
                 }
             }
             catch { }
