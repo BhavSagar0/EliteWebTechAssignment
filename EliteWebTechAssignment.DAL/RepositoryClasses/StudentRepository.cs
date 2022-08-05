@@ -147,7 +147,7 @@ namespace EliteWebTechAssignment.DAL.RepositoryClasses
             StudentMarksEntityModel studentMarks = new StudentMarksEntityModel();
             try
             {
-                studentMarks = _db.StudentMarks.Where(s => s.studentId == studentId).FirstOrDefault();
+                studentMarks = _db.StudentMarks.Where(s => s.studentId == studentId).DefaultIfEmpty(new StudentMarksEntityModel()).First();
             }
             catch { }
             return studentMarks;
