@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EliteWebTechAssignment.DAL"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EliteWebTechAssignment.Domain", "EliteWebTechAssignment.Domain\EliteWebTechAssignment.Domain.csproj", "{C3D87A6E-6940-4DC6-9A9E-C9E612C04796}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliteWebTechAssignment.BusinessServices", "EliteWebTechAssignment.BusinessServices\EliteWebTechAssignment.BusinessServices.csproj", "{08450F22-8403-4643-8EA4-F1651D1D90D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EliteWebTechAssignment.BusinessServices", "EliteWebTechAssignment.BusinessServices\EliteWebTechAssignment.BusinessServices.csproj", "{08450F22-8403-4643-8EA4-F1651D1D90D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliteWebTechAssignment.RestApi", "EliteWebTechAssignment.RestApi\EliteWebTechAssignment.RestApi.csproj", "{920F7677-43AD-4F34-A132-02953CD0C8FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{08450F22-8403-4643-8EA4-F1651D1D90D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08450F22-8403-4643-8EA4-F1651D1D90D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08450F22-8403-4643-8EA4-F1651D1D90D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{920F7677-43AD-4F34-A132-02953CD0C8FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{920F7677-43AD-4F34-A132-02953CD0C8FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{920F7677-43AD-4F34-A132-02953CD0C8FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{920F7677-43AD-4F34-A132-02953CD0C8FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
